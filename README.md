@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Replace with your full logo asset -->
-<img src="images/logofull.png" alt="ModelDoctor" width="420" />
+<img src="images/logo.png" alt="ModelDoctor" width="420" />
 
 <br />
 
