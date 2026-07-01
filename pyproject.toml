@@ -1,0 +1,135 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "modeldoctor"
+version = "0.1.0"
+description = "A production-grade ML model diagnostic framework — behaves like a senior ML engineer reviewing your model"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "ModelDoctor Contributors" }]
+keywords = [
+    "machine-learning",
+    "model-evaluation",
+    "diagnostics",
+    "mlops",
+    "model-health",
+    "explainability",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Quality Assurance",
+    "Typing :: Typed",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.21",
+    "pandas>=1.3",
+    "scikit-learn>=1.1",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "jinja2>=3.0",
+    "scipy>=1.7",
+    "rich>=13.0",
+    "typing-extensions>=4.5; python_version < '3.11'",
+]
+
+[project.optional-dependencies]
+explainability = [
+    "shap>=0.42",
+    "lime>=0.2",
+]
+report = [
+    "plotly>=5.0",
+]
+ai = [
+    "openai>=1.0",
+    "anthropic>=0.20",
+]
+deep = [
+    "torch>=2.0",
+]
+all = [
+    "modeldoctor[explainability,report,ai]",
+]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.0",
+    "pytest-mock>=3.11",
+    "mypy>=1.5",
+    "ruff>=0.1",
+    "pre-commit>=3.0",
+    "hypothesis>=6.0",
+    "xgboost>=2.0",
+    "lightgbm>=4.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/modeldoctor/modeldoctor"
+Documentation = "https://modeldoctor.readthedocs.io"
+Repository = "https://github.com/modeldoctor/modeldoctor"
+Issues = "https://github.com/modeldoctor/modeldoctor/issues"
+Changelog = "https://github.com/modeldoctor/modeldoctor/blob/main/CHANGELOG.md"
+
+# Plugin entry-points — allows third-party packages to register custom doctors.
+[project.entry-points."modeldoctor.doctors"]
+data = "modeldoctor.doctors.data_doctor:DataDoctor"
+feature = "modeldoctor.doctors.feature_doctor:FeatureDoctor"
+overfitting = "modeldoctor.doctors.overfitting_doctor:OverfittingDoctor"
+leakage = "modeldoctor.doctors.leakage_doctor:LeakageDoctor"
+hyperparameter = "modeldoctor.doctors.hyperparameter_doctor:HyperparameterDoctor"
+prediction = "modeldoctor.doctors.prediction_doctor:PredictionDoctor"
+generalization = "modeldoctor.doctors.generalization_doctor:GeneralizationDoctor"
+production = "modeldoctor.doctors.production_doctor:ProductionDoctor"
+
+[tool.hatch.build.targets.wheel]
+packages = ["modeldoctor"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+ignore_missing_imports = true
+plugins = ["pydantic.mypy"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+src = ["modeldoctor", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "ANN", "B", "C4", "RUF"]
+ignore = ["ANN101", "ANN102"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["modeldoctor"]
+
+[tool.coverage.run]
+source = ["modeldoctor"]
+omit = ["modeldoctor/reporting/templates/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "@overload",
+]

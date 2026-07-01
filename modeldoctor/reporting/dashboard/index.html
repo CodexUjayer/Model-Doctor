@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModelDoctor Overview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <!-- Chart.js for lightweight charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-inner">
+            <div class="header-logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                    </svg>
+                </div>
+                <span class="logo-name">ModelDoctor</span>
+            </div>
+            
+            <div class="header-center">
+                <div class="header-title-row">
+                    <h1 class="header-title">Model Health Overview</h1>
+                    <div class="status-dot">Analysis Complete</div>
+                </div>
+                <p class="header-subtitle">Comprehensive evaluation of your machine learning model</p>
+            </div>
+
+            <div class="header-actions">
+                <button id="btn-export" class="btn btn-outline">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Export Report</span>
+                </button>
+                <button id="btn-run" class="btn btn-primary">
+                    <svg class="run-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 2v6h-6"></path>
+                        <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+                        <path d="M3 22v-6h6"></path>
+                        <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+                    </svg>
+                    <svg class="run-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="2" x2="12" y2="6"></line>
+                        <line x1="12" y1="18" x2="12" y2="22"></line>
+                        <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                        <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                        <line x1="2" y1="12" x2="6" y2="12"></line>
+                        <line x1="18" y1="12" x2="22" y2="12"></line>
+                        <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                        <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+                    </svg>
+                    <span>Run New Analysis</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main" id="dashboard-main">
+        <!-- TOP ROW -->
+        <div class="top-row">
+            <!-- Overall Health Score -->
+            <div class="card health-card fade-up delay-1">
+                <div class="health-left">
+                    <div class="health-label">
+                        Overall Health Score
+                        <span data-tip="Aggregated score across all dimensions">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="health-score-row">
+                        <span class="health-score-number" id="overall-score">0</span>
+                        <span class="health-score-denom">/100</span>
+                    </div>
+                    <div id="overall-badge" class="badge">--</div>
+                    <p class="health-summary" id="overall-verdict">Loading analysis...</p>
+                </div>
+                <div class="ring-wrapper">
+                    <svg class="ring-svg" viewBox="0 0 120 120">
+                        <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+                        <circle class="ring-fg" cx="60" cy="60" r="54" id="score-ring"></circle>
+                    </svg>
+                    <svg class="ring-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="card fade-up delay-2">
+                <div class="section-header">Key Metrics</div>
+                <div class="metrics-grid" id="metrics-grid">
+                    <!-- Metrics will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- MIDDLE ROW -->
+        <div class="mid-row">
+            <!-- Health Score Breakdown -->
+            <div class="card breakdown-card fade-up delay-3">
+                <div class="section-header">Health Score Breakdown</div>
+                <div class="breakdown-inner">
+                    <div class="radar-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <div class="dimension-list" id="dimension-list">
+                        <!-- Dimensions will be injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Recommendations -->
+            <div class="card rec-card fade-up delay-4">
+                <div class="section-header">Top Recommendations</div>
+                <div class="rec-list" id="rec-list">
+                    <!-- Recommendations will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM ROW -->
+        <div class="bottom-row">
+            <!-- Performance Overview -->
+            <div class="card perf-card fade-up delay-5">
+                <div class="section-header">Performance Overview</div>
+                <div class="chart-tabs" id="perf-tabs">
+                    <!-- Tabs injected here -->
+                </div>
+                <div class="chart-area" id="perf-charts">
+                     <!-- Charts injected here -->
+                </div>
+            </div>
+
+            <!-- Model Information -->
+            <div class="card info-card fade-up delay-6">
+                <div class="section-header">Model Information</div>
+                <div class="info-grid" id="info-grid">
+                    <!-- Info injected here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer fade-up delay-6">
+        <div class="footer-text">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            All results are computed locally. Your data never leaves your environment.
+        </div>
+    </footer>
+
+    <!-- For demo/development purposes, we can inject a mock report or use fetch -->
+    <script id="report-data" type="application/json">
+        {}
+    </script>
+</body>
+</html>

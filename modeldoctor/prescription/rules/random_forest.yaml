@@ -1,0 +1,18 @@
+- id: rf_max_depth_overfit
+  name: "RandomForest Max Depth Too High"
+  conditions:
+    - field: model_type
+      operator: equals
+      value: RandomForestClassifier
+  recommendations:
+    - action: "Reduce max_depth to 8–10"
+      rationale: "Deep trees memorize noise; limiting depth regularizes the ensemble"
+      confidence: high
+      estimated_impact: "+3–8% generalization accuracy"
+      priority: critical
+    - action: "Set min_samples_leaf = 5"
+      rationale: "Prevents creating leaves with very few samples, acting as further regularization."
+      confidence: medium
+      estimated_impact: "+1–2% generalization accuracy"
+      priority: medium
+  root_cause: "Overly complex trees cause training data memorization"
