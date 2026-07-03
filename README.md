@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/images/logofull.png" alt="ModelDoctor Logo" width="400" />
+<img src="docs/images/logoy.png" alt="ModelDoctor Logo" width="400" />
 
 **Diagnose your machine learning models like a senior ML engineer.**
 
