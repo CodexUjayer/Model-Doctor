@@ -4,12 +4,14 @@
 
 **Diagnose your machine learning models like a senior ML engineer.**
 
-[![PyPI](https://img.shields.io/pypi/v/modeldoctor?style=flat-square&color=4f46e5)](https://pypi.org/project/modeldoctor)
-[![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue?style=flat-square)](https://www.python.org)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/modeldoctor/modeldoctor/blob/main/LICENSE)
-[![Downloads](https://img.shields.io/pypi/dm/modeldoctor?style=flat-square&color=0ea5e9)](https://pypi.org/project/modeldoctor)
-[![Documentation](https://img.shields.io/badge/docs-available-brightgreen?style=flat-square)](https://modeldoctor.readthedocs.io)
-[![CI](https://img.shields.io/github/actions/workflow/status/modeldoctor/modeldoctor/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/modeldoctor/modeldoctor/actions)
+[![PyPI](https://img.shields.io/pypi/v/modeldoctor?style=flat-square&color=4f46e5)](https://pypi.org/project/modeldoctor/)
+[![Python](https://img.shields.io/pypi/pyversions/modeldoctor?style=flat-square)](https://www.python.org/)
+[![License](https://img.shields.io/github/license/CodexUjayer/Model-Doctor?style=flat-square)](https://github.com/CodexUjayer/Model-Doctor/blob/main/LICENSE)
+[![Downloads](https://img.shields.io/pypi/dm/modeldoctor?style=flat-square&color=0ea5e9)](https://pypi.org/project/modeldoctor/)
+[![Documentation](https://img.shields.io/badge/docs-online-22c55e?style=flat-square)](https://codexujayer.github.io/Model-Doctor/)
+[![GitHub Release](https://img.shields.io/github/v/release/CodexUjayer/Model-Doctor?style=flat-square)](https://github.com/CodexUjayer/Model-Doctor/releases)
+[![Issues](https://img.shields.io/github/issues/CodexUjayer/Model-Doctor?style=flat-square)](https://github.com/CodexUjayer/Model-Doctor/issues)
+[![Stars](https://img.shields.io/github/stars/CodexUjayer/Model-Doctor?style=flat-square)](https://github.com/CodexUjayer/Model-Doctor/stargazers)
 
 </div>
 
