@@ -7,7 +7,7 @@
 [![PyPI](https://img.shields.io/pypi/v/modeldoctor)](https://pypi.org/project/modeldoctor/)
 [![Python](https://img.shields.io/pypi/pyversions/modeldoctor?style=flat-square)](https://www.python.org/)
 [![License](https://img.shields.io/github/license/CodexUjayer/Model-Doctor?style=flat-square)](https://github.com/CodexUjayer/Model-Doctor/blob/main/LICENSE)
-[![Downloads](https://img.shields.io/pypi/dm/modeldoctor)](https://pypi.org/project/modeldoctor/)
+[![Downloads](https://img.shields.io/pypi/v/modeldoctor)](https://pypi.org/project/modeldoctor/)
 [![Documentation](https://img.shields.io/badge/docs-online-22c55e?style=flat-square)](https://codexujayer.github.io/Model-Doctor/)
 [![GitHub Release](https://img.shields.io/github/v/release/CodexUjayer/Model-Doctor?style=flat-square)](https://github.com/CodexUjayer/Model-Doctor/releases)
 [![Issues](https://img.shields.io/github/issues/CodexUjayer/Model-Doctor?style=flat-square)](https://github.com/CodexUjayer/Model-Doctor/issues)
