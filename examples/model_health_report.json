@@ -1,0 +1,332 @@
+{
+  "passport": {
+    "model_class": "RandomForestClassifier",
+    "framework": "sklearn",
+    "task_type": "binary_classification",
+    "n_features": 20,
+    "n_train_samples": 800,
+    "n_test_samples": 200,
+    "hyperparameters": {
+      "bootstrap": true,
+      "ccp_alpha": 0.0,
+      "class_weight": null,
+      "criterion": "gini",
+      "max_depth": 5,
+      "max_features": "sqrt",
+      "max_leaf_nodes": null,
+      "max_samples": null,
+      "min_impurity_decrease": 0.0,
+      "min_samples_leaf": 1,
+      "min_samples_split": 2,
+      "min_weight_fraction_leaf": 0.0,
+      "monotonic_cst": null,
+      "n_estimators": 50,
+      "n_jobs": null,
+      "oob_score": false,
+      "random_state": 42,
+      "verbose": 0,
+      "warm_start": false
+    },
+    "feature_names": [
+      "feature_0",
+      "feature_1",
+      "feature_2",
+      "feature_3",
+      "feature_4",
+      "feature_5",
+      "feature_6",
+      "feature_7",
+      "feature_8",
+      "feature_9",
+      "feature_10",
+      "feature_11",
+      "feature_12",
+      "feature_13",
+      "feature_14",
+      "feature_15",
+      "feature_16",
+      "feature_17",
+      "feature_18",
+      "feature_19"
+    ],
+    "model_size_bytes": 177089,
+    "has_predict_proba": true,
+    "has_feature_importances": true,
+    "framework_version": "1.8.0",
+    "extra": {}
+  },
+  "health_score": {
+    "overall": 97.27272727272727,
+    "dimensions": [],
+    "total_findings": 0,
+    "critical_count": 0,
+    "error_count": 0,
+    "warning_count": 0
+  },
+  "diagnoses": [
+    {
+      "doctor_name": "DataDoctor",
+      "dimension": "Data Quality",
+      "findings": [],
+      "dimension_score": 100.0,
+      "passed": true,
+      "execution_time_ms": 0.5227000001468696,
+      "timestamp": "2026-07-02T14:54:57.372196Z",
+      "metadata": {},
+      "error": null
+    },
+    {
+      "doctor_name": "FeatureDoctor",
+      "dimension": "Feature Engineering",
+      "findings": [],
+      "dimension_score": 100.0,
+      "passed": true,
+      "execution_time_ms": 11.496200000692625,
+      "timestamp": "2026-07-02T14:54:57.373956Z",
+      "metadata": {},
+      "error": null
+    },
+    {
+      "doctor_name": "OverfittingDoctor",
+      "dimension": "Overfitting Risk",
+      "findings": [],
+      "dimension_score": 100.0,
+      "passed": true,
+      "execution_time_ms": 5758.832299999995,
+      "timestamp": "2026-07-02T14:54:57.383512Z",
+      "metadata": {},
+      "error": null
+    },
+    {
+      "doctor_name": "LeakageDoctor",
+      "dimension": "Leakage Risk",
+      "findings": [],
+      "dimension_score": 100.0,
+      "passed": true,
+      "execution_time_ms": 0.5123000009916723,
+      "timestamp": "2026-07-02T14:55:03.143810Z",
+      "metadata": {},
+      "error": null
+    },
+    {
+      "doctor_name": "hyperparameter_doctor",
+      "dimension": "Hyperparameter Tuning",
+      "findings": [],
+      "dimension_score": 100.0,
+      "passed": true,
+      "execution_time_ms": 0.1722999986668583,
+      "timestamp": "2026-07-02T14:55:03.143810Z",
+      "metadata": {},
+      "error": null
+    },
+    {
+      "doctor_name": "PredictionDoctor",
+      "dimension": "Prediction Quality",
+      "findings": [],
+      "dimension_score": 100.0,
+      "passed": true,
+      "execution_time_ms": 22.70239999961632,
+      "timestamp": "2026-07-02T14:55:03.143810Z",
+      "metadata": {},
+      "error": null
+    },
+    {
+      "doctor_name": "CalibrationDoctor",
+      "dimension": "Calibration",
+      "findings": [
+        {
+          "id": "a566adc2",
+          "title": "Probability Miscalibration Detected",
+          "explanation": "Severe risk detected threatening model integrity.",
+          "severity": "critical",
+          "confidence": "high",
+          "risk_score": 100.0,
+          "risk_level": "CRITICAL",
+          "evidence": {
+            "Expected Calibration Error": 0.16122440992653125
+          },
+          "structured_evidence": [
+            {
+              "id": "19e0cac5",
+              "name": "Expected Calibration Error",
+              "description": "ECE=0.161 is critically high. Predicted probabilities are unreliable.",
+              "measured_value": 0.16122440992653125,
+              "expected_range": "<= 0.07",
+              "normalized_score": 1.0,
+              "contribution_weight": "Very High",
+              "confidence_contribution": 0.0,
+              "supporting_metrics": {},
+              "metadata": {},
+              "timestamp": "2026-07-02T14:55:03.163456Z"
+            }
+          ],
+          "affected_components": [],
+          "tags": [
+            "calibration"
+          ],
+          "doctor_name": "CalibrationDoctor"
+        }
+      ],
+      "dimension_score": 70.0,
+      "passed": false,
+      "execution_time_ms": 0.706200000422541,
+      "timestamp": "2026-07-02T14:55:03.163456Z",
+      "metadata": {
+        "calibration_metrics": {
+          "brier_score": 0.08985606046513989,
+          "expected_calibration_error": 0.16122440992653125
+        }
+      },
+      "error": null
+    },
+    {
+      "doctor_name": "GeneralizationDoctor",
+      "dimension": "Generalization",
+      "findings": [],
+      "dimension_score": 100.0,
+      "passed": true,
+      "execution_time_ms": 0.1052999996318249,
+      "timestamp": "2026-07-02T14:55:03.163456Z",
+      "metadata": {},
+      "error": null
+    },
+    {
+      "doctor_name": "ProductionDoctor",
+      "dimension": "Production Readiness",
+      "findings": [],
+      "dimension_score": 100.0,
+      "passed": true,
+      "execution_time_ms": 286.90239999923506,
+      "timestamp": "2026-07-02T14:55:03.163456Z",
+      "metadata": {},
+      "error": null
+    }
+  ],
+  "prescription": {
+    "fired_rules": [],
+    "all_recommendations": [
+      {
+        "id": "rf_max_depth_overfit_0",
+        "title": "Recommendation",
+        "description": "Reduce max_depth to 8â€“10",
+        "rationale": "Deep trees memorize noise; limiting depth regularizes the ensemble",
+        "confidence": "high",
+        "estimated_improvement": "+3â€“8% generalization accuracy",
+        "priority": "critical",
+        "implementation_difficulty": "Medium",
+        "estimated_time": null,
+        "supporting_evidence": {},
+        "affected_metrics": [],
+        "code_example": null,
+        "references": [],
+        "tags": [],
+        "source_finding_ids": []
+      },
+      {
+        "id": "rf_max_depth_overfit_1",
+        "title": "Recommendation",
+        "description": "Set min_samples_leaf = 5",
+        "rationale": "Prevents creating leaves with very few samples, acting as further regularization.",
+        "confidence": "medium",
+        "estimated_improvement": "+1â€“2% generalization accuracy",
+        "priority": "medium",
+        "implementation_difficulty": "Medium",
+        "estimated_time": null,
+        "supporting_evidence": {},
+        "affected_metrics": [],
+        "code_example": null,
+        "references": [],
+        "tags": [],
+        "source_finding_ids": []
+      }
+    ],
+    "rules_evaluated": 1,
+    "rules_fired": 1
+  },
+  "top_recommendations": [
+    {
+      "id": "rf_max_depth_overfit_0",
+      "title": "Recommendation",
+      "description": "Reduce max_depth to 8â€“10",
+      "rationale": "Deep trees memorize noise; limiting depth regularizes the ensemble",
+      "confidence": "high",
+      "estimated_improvement": "+3â€“8% generalization accuracy",
+      "priority": "critical",
+      "implementation_difficulty": "Medium",
+      "estimated_time": null,
+      "supporting_evidence": {},
+      "affected_metrics": [],
+      "code_example": null,
+      "references": [],
+      "tags": [],
+      "source_finding_ids": []
+    },
+    {
+      "id": "rf_max_depth_overfit_1",
+      "title": "Recommendation",
+      "description": "Set min_samples_leaf = 5",
+      "rationale": "Prevents creating leaves with very few samples, acting as further regularization.",
+      "confidence": "medium",
+      "estimated_improvement": "+1â€“2% generalization accuracy",
+      "priority": "medium",
+      "implementation_difficulty": "Medium",
+      "estimated_time": null,
+      "supporting_evidence": {},
+      "affected_metrics": [],
+      "code_example": null,
+      "references": [],
+      "tags": [],
+      "source_finding_ids": []
+    }
+  ],
+  "section_reviews": [],
+  "explainability": {
+    "enabled": true,
+    "mode": "auto",
+    "shap_available": false,
+    "method": "permutation",
+    "top_features": {
+      "feature_10": 0.21408640052490466,
+      "feature_18": 0.1658113995380635,
+      "feature_15": 0.14555028849330076,
+      "feature_9": 0.1400245344299633,
+      "feature_4": 0.10236180358135372,
+      "feature_1": 0.061229001142671796,
+      "feature_12": 0.04954480076378193,
+      "feature_13": 0.010574151971806363,
+      "feature_14": 0.010521802981235437,
+      "feature_2": 0.010284394604907997
+    },
+    "skip_reason": "shap package not installed."
+  },
+  "executive_summary": "The model (RandomForestClassifier) was evaluated on BINARY_CLASSIFICATION task. Overall, the model is in excellent condition with a health score of 97.3/100. The diagnostic pipeline identified 1 notable findings.",
+  "generated_at": "2026-07-02T14:55:03.464073Z",
+  "modeldoctor_version": "0.2.0",
+  "metadata": {},
+  "pipeline_summary": {
+    "executed": [
+      "DataDoctor",
+      "FeatureDoctor",
+      "OverfittingDoctor",
+      "LeakageDoctor",
+      "hyperparameter_doctor",
+      "PredictionDoctor",
+      "CalibrationDoctor",
+      "GeneralizationDoctor",
+      "ProductionDoctor"
+    ],
+    "skipped": {},
+    "total_time_ms": 6082.196400000612,
+    "doctor_times_ms": {
+      "DataDoctor": 0.5628999988402938,
+      "FeatureDoctor": 11.511599999721511,
+      "OverfittingDoctor": 5758.845599999404,
+      "LeakageDoctor": 0.5334999987098854,
+      "hyperparameter_doctor": 0.182699999641045,
+      "PredictionDoctor": 22.715499999321764,
+      "CalibrationDoctor": 0.7182999997894512,
+      "GeneralizationDoctor": 0.11409999933675863,
+      "ProductionDoctor": 286.9121999992785
+    }
+  }
+}

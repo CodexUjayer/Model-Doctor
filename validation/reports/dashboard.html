@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModelDoctor Validation Laboratory</title>
+    <style>
+        :root {
+            --primary: #007aff;
+            --success: #34c759;
+            --warning: #ffcc00;
+            --error: #ff3b30;
+            --bg: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --border: #d2d2d7;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3 { font-weight: 600; letter-spacing: -0.015em; }
+        h1 { font-size: 2.5rem; text-align: center; margin-bottom: 2rem; }
+        
+        .container { max-width: 1200px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .stat-value { font-size: 3rem; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .badge.pass { background: rgba(52, 199, 89, 0.15); color: var(--success); }
+        .badge.fail { background: rgba(255, 59, 48, 0.15); color: var(--error); }
+        
+        .progress-bar-bg { background: var(--bg); height: 8px; border-radius: 4px; overflow: hidden; margin-top: 0.5rem; }
+        .progress-bar-fill { background: var(--primary); height: 100%; }
+        
+        .doctor-list { list-style: none; padding: 0; margin: 0; }
+        .doctor-item { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+        .doctor-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Validation Laboratory</h1>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="stat-label">Total Scenarios</div>
+                <div class="stat-value">54</div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="stat-label">Passed</div>
+                <div class="stat-value" style="color: var(--success)">53</div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: 98.14814814814815%; background: var(--success)"></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="stat-label">Release Readiness</div>
+                <div class="stat-value" style="color: var(--error); font-size: 2rem; margin-top: 1rem;">
+                    NOT READY
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h2>Doctor Leaderboard</h2>
+                <ul class="doctor-list">
+
+                    <li class="doctor-item">
+                        <span>Calibration</span>
+                        <span style="font-weight: 600; color: var(--success)">100%</span>
+                    </li>
+            
+                    <li class="doctor-item">
+                        <span>Data quality</span>
+                        <span style="font-weight: 600; color: var(--success)">100%</span>
+                    </li>
+            
+                    <li class="doctor-item">
+                        <span>Feature engineering</span>
+                        <span style="font-weight: 600; color: var(--success)">100%</span>
+                    </li>
+            
+                    <li class="doctor-item">
+                        <span>Generalization</span>
+                        <span style="font-weight: 600; color: var(--success)">100%</span>
+                    </li>
+            
+                    <li class="doctor-item">
+                        <span>Leakage</span>
+                        <span style="font-weight: 600; color: var(--success)">100%</span>
+                    </li>
+            
+                    <li class="doctor-item">
+                        <span>Overfitting</span>
+                        <span style="font-weight: 600; color: var(--success)">100%</span>
+                    </li>
+            
+                    <li class="doctor-item">
+                        <span>Production</span>
+                        <span style="font-weight: 600; color: var(--success)">100%</span>
+                    </li>
+            
+                    <li class="doctor-item">
+                        <span>Prediction</span>
+                        <span style="font-weight: 600; color: var(--error)">83%</span>
+                    </li>
+            
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2>Metrics Overview</h2>
+                <ul class="doctor-list">
+                    <li class="doctor-item">
+                        <span>False Positives</span>
+                        <span style="font-weight: 600">0.0%</span>
+                    </li>
+                    <li class="doctor-item">
+                        <span>False Negatives</span>
+                        <span style="font-weight: 600">31.0%</span>
+                    </li>
+                    <li class="doctor-item">
+                        <span>Average Confidence</span>
+                        <span style="font-weight: 600">76.1%</span>
+                    </li>
+                    <li class="doctor-item">
+                        <span>Average Runtime</span>
+                        <span style="font-weight: 600">1.59s</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Pass/Fail Matrix</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Scenario</th>
+                        <th>Status</th>
+                        <th>Runtime</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td style="font-weight: 500">Calibration</td>
+                        <td>Isotonic Calibration</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>15.73s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Calibration</td>
+                        <td>Overconfident RF</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>3.56s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Calibration</td>
+                        <td>Overconfident Decision Tree</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.11s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Calibration</td>
+                        <td>Platt Scaling</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>2.92s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Calibration</td>
+                        <td>Poor Calibration</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.19s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Calibration</td>
+                        <td>Well-calibrated LR</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.12s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Data Quality</td>
+                        <td>Class Imbalance</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.12s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Data Quality</td>
+                        <td>Constant Features</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.15s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Data Quality</td>
+                        <td>Duplicate Columns</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.19s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Data Quality</td>
+                        <td>Duplicate Rows</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.17s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Data Quality</td>
+                        <td>Healthy Dataset</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.14s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Data Quality</td>
+                        <td>Highly Correlated Features</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.12s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Data Quality</td>
+                        <td>Missing Values</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.21s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Data Quality</td>
+                        <td>Near Constant Features</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.17s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Data Quality</td>
+                        <td>Small Dataset</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.16s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Feature Engineering</td>
+                        <td>Constant Features</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.17s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Feature Engineering</td>
+                        <td>Dominant Feature</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.48s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Feature Engineering</td>
+                        <td>Healthy Features</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.18s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Feature Engineering</td>
+                        <td>High Cardinality</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.38s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Feature Engineering</td>
+                        <td>High Correlation</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.18s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Feature Engineering</td>
+                        <td>Potential Leakage Feature</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.31s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Feature Engineering</td>
+                        <td>Too Many Features</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.50s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Generalization</td>
+                        <td>High CV Variance</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.11s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Generalization</td>
+                        <td>Poor Validation Split</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.06s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Generalization</td>
+                        <td>Small Validation Set</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.09s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Generalization</td>
+                        <td>Stable CV</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.37s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Generalization</td>
+                        <td>Strong Generalization</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.10s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Generalization</td>
+                        <td>Weak Generalization</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.11s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Leakage</td>
+                        <td>Customer ID Leakage</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.30s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Leakage</td>
+                        <td>Duplicate Target</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.60s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Leakage</td>
+                        <td>Future Information</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.48s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Leakage</td>
+                        <td>Healthy Dataset</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.15s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Leakage</td>
+                        <td>Target Copied Into Feature</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.19s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Leakage</td>
+                        <td>Timestamp Leakage</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.54s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Leakage</td>
+                        <td>Weak Correlation</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.15s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Overfitting</td>
+                        <td>Healthy Gradient Boosting</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.34s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Overfitting</td>
+                        <td>Healthy Logistic Regression</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.16s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Overfitting</td>
+                        <td>Healthy Random Forest</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.63s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Overfitting</td>
+                        <td>Overfit Random Forest</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>5.75s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Overfitting</td>
+                        <td>Small Dataset High Variance</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.86s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Overfitting</td>
+                        <td>Overfit Decision Tree</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.14s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Overfitting</td>
+                        <td>Underfit Tree</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.12s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Prediction</td>
+                        <td>Average Classifier</td>
+                        <td><span class="badge fail">FAIL</span></td>
+                        <td>0.22s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;">Expected finding containing 'Test Accuracy' not found.</td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Prediction</td>
+                        <td>Excellent Classifier</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.57s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Prediction</td>
+                        <td>Poor Classifier</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.22s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Prediction</td>
+                        <td>Excellent Regression</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.99s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Prediction</td>
+                        <td>Moderate Regression</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.27s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Prediction</td>
+                        <td>Poor Regression</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.13s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Production</td>
+                        <td>Fast Inference</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.15s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Production</td>
+                        <td>Huge Random Forest</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.85s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Production</td>
+                        <td>Large Gradient Boosting</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>1.44s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Production</td>
+                        <td>Large Serialized Model</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.24s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Production</td>
+                        <td>Slow Inference</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>26.80s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                    <tr>
+                        <td style="font-weight: 500">Production</td>
+                        <td>Tiny Model</td>
+                        <td><span class="badge pass">PASS</span></td>
+                        <td>0.35s</td>
+                        <td style="color: var(--error); font-size: 0.85rem;"></td>
+                    </tr>
+            
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

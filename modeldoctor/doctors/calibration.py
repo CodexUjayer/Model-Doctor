@@ -1,28 +1,28 @@
-"""CalibrationDoctor — diagnoses probability calibration issues."""
+"""CalibrationDoctor — diagnoses probability calibration issues using Evidence Engine."""
 
 import numpy as np
 from typing import Dict, Any
 
 from modeldoctor.core.base_doctor import BaseDoctor
 from modeldoctor.core.context import EvaluationContext
-from modeldoctor.models.diagnosis import Diagnosis
+from modeldoctor.models.diagnosis import Diagnosis, Finding
 from modeldoctor.models.metadata import DoctorMetadata
-from modeldoctor.models.enums import TaskType, Severity
+from modeldoctor.models.enums import TaskType, Severity, Confidence
+from modeldoctor.diagnosis import EvidenceBuilder, ConfidenceEngine, RiskEngine, RULES
 
 
 class CalibrationDoctor(BaseDoctor):
     """Diagnoses probability calibration for classification models.
 
     Computes Expected Calibration Error (ECE) and Brier Score, then
-    produces actionable findings with prescriptions embedded in the
-    finding evidence for the PrescriptionEngine to act on.
+    produces actionable findings backed by structured evidence.
     """
 
-    name = "calibration_doctor"
+    name = "CalibrationDoctor"
     dimension = "Calibration"
 
     metadata = DoctorMetadata(
-        name="calibration_doctor",
+        name="CalibrationDoctor",
         priority=65,
         dimension="Calibration",
         supported_tasks=[TaskType.BINARY_CLASSIFICATION.value],
@@ -37,72 +37,118 @@ class CalibrationDoctor(BaseDoctor):
 
     def examine(self, context: EvaluationContext) -> Diagnosis:
         diagnosis = self._new_diagnosis()
+        builder = EvidenceBuilder()
 
         y_true = context.y_test
         y_prob = context.test_probabilities[:, 1]
 
-        # Brier Score (from context metrics if available, else compute)
+        # Brier Score
         brier_score = context.classification_metrics.get("brier_score")
         if brier_score is None:
             from sklearn.metrics import brier_score_loss
             brier_score = brier_score_loss(y_true, y_prob)
 
-        # Compute Expected Calibration Error (ECE)
+        # Expected Calibration Error (ECE)
         ece = self._compute_ece(y_true, y_prob)
 
-        # Store metrics in metadata (Diagnosis doesn't have a metrics field)
+        # Store raw metrics in diagnosis metadata for downstream consumers
         diagnosis.metadata["calibration_metrics"] = {
             "brier_score": float(brier_score),
             "expected_calibration_error": float(ece),
         }
 
-        # Check for poor calibration
-        if ece > 0.15:
-            diagnosis.add_finding(
-                self._finding(
-                    severity=Severity.ERROR,
-                    title="Severe Probability Miscalibration",
-                    description=(
-                        f"The model's predicted probabilities are poorly calibrated "
-                        f"(ECE={ece:.3f}). Predictions do not reflect true likelihoods."
-                    ),
-                    evidence={
-                        "expected_calibration_error": round(ece, 4),
-                        "brier_score": round(float(brier_score), 4),
-                        "severity_threshold": 0.15,
-                        "prescription": "Platt Scaling or Isotonic Regression",
-                    },
-                )
+        # Signal 1: ECE
+        if ece > RULES.calibration_ece_critical:
+            builder.add(
+                name="Expected Calibration Error",
+                description=f"ECE={ece:.3f} is critically high. Predicted probabilities are unreliable.",
+                measured_value=float(ece),
+                expected_range=f"<= {RULES.calibration_ece_warning}",
+                weight="Very High",
+                normalized_score=1.0,
             )
-        elif ece > 0.05:
-            diagnosis.add_finding(
-                self._finding(
-                    severity=Severity.WARNING,
-                    title="Moderate Probability Miscalibration",
-                    description=(
-                        f"The model is slightly miscalibrated (ECE={ece:.3f}). "
-                        "Consider post-hoc calibration."
-                    ),
-                    evidence={
-                        "expected_calibration_error": round(ece, 4),
-                        "brier_score": round(float(brier_score), 4),
-                        "severity_threshold": 0.05,
-                        "prescription": "Isotonic Regression on a holdout set",
-                    },
-                )
+        elif ece > RULES.calibration_ece_warning:
+            builder.add(
+                name="Expected Calibration Error",
+                description=f"ECE={ece:.3f} indicates moderate miscalibration.",
+                measured_value=float(ece),
+                expected_range=f"<= {RULES.calibration_ece_warning}",
+                weight="High",
+                normalized_score=0.7,
             )
-        else:
+
+        # Signal 2: Brier Score (supportive signal — never sole trigger for CRITICAL)
+        brier = float(brier_score)
+        if brier > RULES.calibration_brier_critical:
+            builder.add(
+                name="Brier Score",
+                description=f"Brier Score={brier:.3f} is high (random guessing = 0.25).",
+                measured_value=brier,
+                expected_range=f"<= {RULES.calibration_brier_warning}",
+                weight="Medium",
+                normalized_score=0.65,
+            )
+        elif brier > RULES.calibration_brier_warning:
+            builder.add(
+                name="Brier Score",
+                description=f"Brier Score={brier:.3f} is slightly elevated.",
+                measured_value=brier,
+                expected_range=f"<= {RULES.calibration_brier_warning}",
+                weight="Low",
+                normalized_score=0.4,
+            )
+
+        evidence_list = builder.get_all()
+
+        if not evidence_list:
+            # Good calibration — emit an INFO finding for completeness
             diagnosis.add_finding(
                 self._finding(
                     severity=Severity.INFO,
                     title="Good Probability Calibration",
-                    description=f"The model is well-calibrated (ECE={ece:.3f}).",
+                    description=f"The model is well-calibrated (ECE={ece:.3f}, Brier={brier:.3f}).",
                     evidence={
                         "expected_calibration_error": round(ece, 4),
-                        "brier_score": round(float(brier_score), 4),
+                        "brier_score": round(brier, 4),
                     },
                 )
             )
+            diagnosis.dimension_score = 100.0
+            return diagnosis
+
+        confidence_score, confidence_label = ConfidenceEngine.compute(evidence_list)
+        risk_score, risk_level, risk_expl = RiskEngine.compute(evidence_list)
+
+        conf_map = {
+            "Very High": Confidence.HIGH,
+            "High": Confidence.HIGH,
+            "Medium": Confidence.MEDIUM,
+            "Low": Confidence.LOW,
+        }
+        sev_map = {
+            "CRITICAL": Severity.CRITICAL,
+            "HIGH": Severity.WARNING,
+            "MEDIUM": Severity.WARNING,
+            "LOW": Severity.INFO,
+            "INFO": Severity.INFO,
+        }
+
+        severity = sev_map.get(risk_level, Severity.INFO)
+
+        if severity in [Severity.CRITICAL, Severity.WARNING]:
+            legacy_evidence = {e.name: e.measured_value for e in evidence_list}
+            finding = Finding(
+                title="Probability Miscalibration Detected",
+                description=risk_expl,
+                severity=severity,
+                confidence=conf_map.get(confidence_label, Confidence.MEDIUM),
+                risk_score=risk_score,
+                risk_level=risk_level,
+                evidence=legacy_evidence,
+                structured_evidence=evidence_list,
+                tags=["calibration"],
+            )
+            diagnosis.add_finding(finding)
 
         diagnosis.dimension_score = self._score_from_findings(diagnosis)
         return diagnosis
@@ -111,7 +157,6 @@ class CalibrationDoctor(BaseDoctor):
         """Compute Expected Calibration Error using equal-width binning."""
         bins = np.linspace(0.0, 1.0, n_bins + 1)
         binned = np.digitize(y_prob, bins) - 1
-        # Clip to valid range [0, n_bins-1]
         binned = np.clip(binned, 0, n_bins - 1)
 
         ece = 0.0

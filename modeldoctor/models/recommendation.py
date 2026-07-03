@@ -42,6 +42,7 @@ class Recommendation(BaseModel):
     estimated_improvement: str = Field(default="", alias="estimated_impact")
     priority: Priority = Priority.MEDIUM
     implementation_difficulty: str = "Medium"
+    estimated_time: Optional[str] = None
     supporting_evidence: Dict[str, Any] = Field(default_factory=dict)
     affected_metrics: List[str] = Field(default_factory=list)
     code_example: Optional[str] = None
@@ -70,6 +71,12 @@ class PrescriptionRule(BaseModel):
         root_cause: Explanation of why this pattern is problematic.
         recommendations: Recommendations produced by this rule.
         matched_conditions: The conditions that were satisfied.
+        before_value: State before prescription.
+        after_value: State after prescription.
+        estimated_gain: Estimated gain from applying prescription.
+        confidence: Confidence in the prescription.
+        explanation: Additional explanation.
+        implementation_steps: Steps to implement.
         metadata: Rule metadata (source file, version, etc.).
     """
 
@@ -78,6 +85,15 @@ class PrescriptionRule(BaseModel):
     root_cause: str
     recommendations: List[Recommendation] = Field(default_factory=list)
     matched_conditions: List[Dict[str, Any]] = Field(default_factory=list)
+    
+    # New Prescription Fields
+    before_value: Optional[Any] = None
+    after_value: Optional[Any] = None
+    estimated_gain: Optional[str] = None
+    confidence: Confidence = Confidence.MEDIUM
+    explanation: Optional[str] = None
+    implementation_steps: List[str] = Field(default_factory=list)
+    
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
 

@@ -1,0 +1,513 @@
+{
+    "metrics": {
+        "total_scenarios": 54,
+        "passed": 53,
+        "failed": 1,
+        "overall_accuracy": 0.9814814814814815,
+        "false_positive_rate": 0.0,
+        "false_negative_rate": 0.3103448275862069,
+        "precision": 1.0,
+        "recall": 0.6896551724137931,
+        "average_confidence": 76.11428571428571,
+        "average_runtime_s": 1.587698221206665,
+        "per_doctor_accuracy": {
+            "Calibration": 1.0,
+            "Data Quality": 1.0,
+            "Feature Engineering": 1.0,
+            "Generalization": 1.0,
+            "Leakage": 1.0,
+            "Overfitting": 1.0,
+            "Prediction": 0.8333333333333334,
+            "Production": 1.0
+        },
+        "coverage": 54
+    },
+    "results": [
+        {
+            "category": "Calibration",
+            "scenario": "Isotonic Calibration",
+            "status": "PASS",
+            "duration_s": 15.734588384628296,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Calibration",
+            "scenario": "Overconfident RF",
+            "status": "PASS",
+            "duration_s": 3.5563642978668213,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": true
+        },
+        {
+            "category": "Calibration",
+            "scenario": "Overconfident Decision Tree",
+            "status": "PASS",
+            "duration_s": 0.1057424545288086,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Calibration",
+            "scenario": "Platt Scaling",
+            "status": "PASS",
+            "duration_s": 2.916067123413086,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Calibration",
+            "scenario": "Poor Calibration",
+            "status": "PASS",
+            "duration_s": 1.1860172748565674,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": true
+        },
+        {
+            "category": "Calibration",
+            "scenario": "Well-calibrated LR",
+            "status": "PASS",
+            "duration_s": 0.11866879463195801,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Data Quality",
+            "scenario": "Class Imbalance",
+            "status": "PASS",
+            "duration_s": 0.12035989761352539,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Data Quality",
+            "scenario": "Constant Features",
+            "status": "PASS",
+            "duration_s": 0.14739704132080078,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Data Quality",
+            "scenario": "Duplicate Columns",
+            "status": "PASS",
+            "duration_s": 0.190140962600708,
+            "error": "",
+            "expected_passed": null,
+            "actual_passed": true
+        },
+        {
+            "category": "Data Quality",
+            "scenario": "Duplicate Rows",
+            "status": "PASS",
+            "duration_s": 0.1678624153137207,
+            "error": "",
+            "expected_passed": null,
+            "actual_passed": true
+        },
+        {
+            "category": "Data Quality",
+            "scenario": "Healthy Dataset",
+            "status": "PASS",
+            "duration_s": 0.13826656341552734,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Data Quality",
+            "scenario": "Highly Correlated Features",
+            "status": "PASS",
+            "duration_s": 0.12274813652038574,
+            "error": "",
+            "expected_passed": null,
+            "actual_passed": true
+        },
+        {
+            "category": "Data Quality",
+            "scenario": "Missing Values",
+            "status": "PASS",
+            "duration_s": 0.20963239669799805,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Data Quality",
+            "scenario": "Near Constant Features",
+            "status": "PASS",
+            "duration_s": 0.17334890365600586,
+            "error": "",
+            "expected_passed": null,
+            "actual_passed": true
+        },
+        {
+            "category": "Data Quality",
+            "scenario": "Small Dataset",
+            "status": "PASS",
+            "duration_s": 0.16099047660827637,
+            "error": "",
+            "expected_passed": null,
+            "actual_passed": true
+        },
+        {
+            "category": "Feature Engineering",
+            "scenario": "Constant Features",
+            "status": "PASS",
+            "duration_s": 0.17088985443115234,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": true
+        },
+        {
+            "category": "Feature Engineering",
+            "scenario": "Dominant Feature",
+            "status": "PASS",
+            "duration_s": 1.4755780696868896,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": true
+        },
+        {
+            "category": "Feature Engineering",
+            "scenario": "Healthy Features",
+            "status": "PASS",
+            "duration_s": 1.179330587387085,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Feature Engineering",
+            "scenario": "High Cardinality",
+            "status": "PASS",
+            "duration_s": 1.3837735652923584,
+            "error": "",
+            "expected_passed": null,
+            "actual_passed": true
+        },
+        {
+            "category": "Feature Engineering",
+            "scenario": "High Correlation",
+            "status": "PASS",
+            "duration_s": 0.17513465881347656,
+            "error": "",
+            "expected_passed": null,
+            "actual_passed": true
+        },
+        {
+            "category": "Feature Engineering",
+            "scenario": "Potential Leakage Feature",
+            "status": "PASS",
+            "duration_s": 1.309274673461914,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": true
+        },
+        {
+            "category": "Feature Engineering",
+            "scenario": "Too Many Features",
+            "status": "PASS",
+            "duration_s": 0.49884843826293945,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": true
+        },
+        {
+            "category": "Generalization",
+            "scenario": "High CV Variance",
+            "status": "PASS",
+            "duration_s": 0.1060333251953125,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Generalization",
+            "scenario": "Poor Validation Split",
+            "status": "PASS",
+            "duration_s": 1.0581128597259521,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Generalization",
+            "scenario": "Small Validation Set",
+            "status": "PASS",
+            "duration_s": 0.09470438957214355,
+            "error": "",
+            "expected_passed": null,
+            "actual_passed": true
+        },
+        {
+            "category": "Generalization",
+            "scenario": "Stable CV",
+            "status": "PASS",
+            "duration_s": 1.373239278793335,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Generalization",
+            "scenario": "Strong Generalization",
+            "status": "PASS",
+            "duration_s": 0.09536170959472656,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Generalization",
+            "scenario": "Weak Generalization",
+            "status": "PASS",
+            "duration_s": 0.10857200622558594,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": true
+        },
+        {
+            "category": "Leakage",
+            "scenario": "Customer ID Leakage",
+            "status": "PASS",
+            "duration_s": 1.2975132465362549,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Leakage",
+            "scenario": "Duplicate Target",
+            "status": "PASS",
+            "duration_s": 1.597883701324463,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Leakage",
+            "scenario": "Future Information",
+            "status": "PASS",
+            "duration_s": 1.4838640689849854,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Leakage",
+            "scenario": "Healthy Dataset",
+            "status": "PASS",
+            "duration_s": 0.15228939056396484,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Leakage",
+            "scenario": "Target Copied Into Feature",
+            "status": "PASS",
+            "duration_s": 1.194321632385254,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Leakage",
+            "scenario": "Timestamp Leakage",
+            "status": "PASS",
+            "duration_s": 1.5433216094970703,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Leakage",
+            "scenario": "Weak Correlation",
+            "status": "PASS",
+            "duration_s": 0.1490767002105713,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Overfitting",
+            "scenario": "Healthy Gradient Boosting",
+            "status": "PASS",
+            "duration_s": 1.338017463684082,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Overfitting",
+            "scenario": "Healthy Logistic Regression",
+            "status": "PASS",
+            "duration_s": 0.15592026710510254,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Overfitting",
+            "scenario": "Healthy Random Forest",
+            "status": "PASS",
+            "duration_s": 1.632204532623291,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Overfitting",
+            "scenario": "Overfit Random Forest",
+            "status": "PASS",
+            "duration_s": 5.75006103515625,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Overfitting",
+            "scenario": "Small Dataset High Variance",
+            "status": "PASS",
+            "duration_s": 0.8556888103485107,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Overfitting",
+            "scenario": "Overfit Decision Tree",
+            "status": "PASS",
+            "duration_s": 0.14004063606262207,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Overfitting",
+            "scenario": "Underfit Tree",
+            "status": "PASS",
+            "duration_s": 0.1208944320678711,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Prediction",
+            "scenario": "Average Classifier",
+            "status": "FAIL",
+            "duration_s": 0.21647286415100098,
+            "error": "Expected finding containing 'Test Accuracy' not found.",
+            "expected_passed": false,
+            "actual_passed": true
+        },
+        {
+            "category": "Prediction",
+            "scenario": "Excellent Classifier",
+            "status": "PASS",
+            "duration_s": 1.5721914768218994,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Prediction",
+            "scenario": "Poor Classifier",
+            "status": "PASS",
+            "duration_s": 0.22403407096862793,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Prediction",
+            "scenario": "Excellent Regression",
+            "status": "PASS",
+            "duration_s": 0.9911723136901855,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Prediction",
+            "scenario": "Moderate Regression",
+            "status": "PASS",
+            "duration_s": 0.2737545967102051,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": true
+        },
+        {
+            "category": "Prediction",
+            "scenario": "Poor Regression",
+            "status": "PASS",
+            "duration_s": 0.1334671974182129,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Production",
+            "scenario": "Fast Inference",
+            "status": "PASS",
+            "duration_s": 0.14558076858520508,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        },
+        {
+            "category": "Production",
+            "scenario": "Huge Random Forest",
+            "status": "PASS",
+            "duration_s": 1.8549113273620605,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Production",
+            "scenario": "Large Gradient Boosting",
+            "status": "PASS",
+            "duration_s": 1.4410922527313232,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Production",
+            "scenario": "Large Serialized Model",
+            "status": "PASS",
+            "duration_s": 0.24049019813537598,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Production",
+            "scenario": "Slow Inference",
+            "status": "PASS",
+            "duration_s": 26.803747415542603,
+            "error": "",
+            "expected_passed": false,
+            "actual_passed": false
+        },
+        {
+            "category": "Production",
+            "scenario": "Tiny Model",
+            "status": "PASS",
+            "duration_s": 0.3506433963775635,
+            "error": "",
+            "expected_passed": true,
+            "actual_passed": true
+        }
+    ]
+}

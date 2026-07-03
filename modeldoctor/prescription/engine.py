@@ -8,7 +8,7 @@ import yaml
 
 from modeldoctor.core.context import EvaluationContext
 from modeldoctor.models.diagnosis import Diagnosis
-from modeldoctor.models.recommendation import Recommendation, PrescriptionResult
+from modeldoctor.models.recommendation import Recommendation, PrescriptionRule as ModelPrescriptionRule
 from modeldoctor.prescription.rules import PrescriptionRule
 from modeldoctor.prescription.knowledge_base import KnowledgeBase
 from modeldoctor.utils.logging import get_logger
@@ -43,7 +43,7 @@ class PrescriptionEngine:
                 
         logger.info(f"Loaded {len(self.rules)} prescription rules.")
 
-    def prescribe(self, context: EvaluationContext, diagnoses: List[Diagnosis]) -> List[PrescriptionResult]:
+    def prescribe(self, context: EvaluationContext, diagnoses: List[Diagnosis]) -> List[ModelPrescriptionRule]:
         """Evaluate rules and return prescriptions."""
         # Simple proof-of-concept evaluator
         
@@ -78,8 +78,9 @@ class PrescriptionEngine:
                     recs.append(rec)
                     
                 results.append(
-                    PrescriptionResult(
+                    ModelPrescriptionRule(
                         rule_id=rule.id,
+                        rule_name=rule.name if hasattr(rule, 'name') else rule.id,
                         root_cause=kb_entry.diagnosis if kb_entry else rule.root_cause,
                         recommendations=recs
                     )

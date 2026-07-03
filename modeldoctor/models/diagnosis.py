@@ -13,8 +13,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
-from modeldoctor.models.enums import Severity
-
+from modeldoctor.models.enums import Severity, Confidence
 
 class Evidence(BaseModel):
     """A single piece of quantitative or qualitative evidence supporting a finding.
@@ -54,7 +53,11 @@ class Finding(BaseModel):
         title: Short, descriptive title (≤ 80 chars).
         explanation: Detailed explanation of the issue (replaces `description`).
         severity: Impact severity of this finding.
+        confidence: Confidence level of this finding.
+        risk_score: Numerical risk score (0-100).
+        risk_level: Descriptive risk level string.
         evidence: Dictionary of structured evidence items supporting the finding.
+        structured_evidence: List of rich DiagnosticEvidence objects.
         affected_components: Model components or features implicated.
         tags: Free-form categorisation tags (e.g., ``["overfitting", "regularization"]``).
         doctor_name: Name of the Doctor that produced this finding.
@@ -64,7 +67,11 @@ class Finding(BaseModel):
     title: str
     explanation: str = Field(alias="description")
     severity: Severity
+    confidence: Confidence = Confidence.MEDIUM
+    risk_score: float = 0.0
+    risk_level: str = "INFO"
     evidence: Dict[str, Any] = Field(default_factory=dict)
+    structured_evidence: List[Any] = Field(default_factory=list) # Holds DiagnosticEvidence objects
     affected_components: List[str] = Field(default_factory=list)
     tags: List[str] = Field(default_factory=list)
     doctor_name: str = ""
