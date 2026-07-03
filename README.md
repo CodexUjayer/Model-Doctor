@@ -4,7 +4,7 @@
 
 **Diagnose your machine learning models like a senior ML engineer.**
 
-[![PyPI](https://img.shields.io/pypi/v/modeldoctor?style=flat-square&color=4f46e5)](https://pypi.org/project/modeldoctor/)
+[![PyPI](https://img.shields.io/pypi/v/modeldoctor)](https://pypi.org/project/modeldoctor/)
 [![Python](https://img.shields.io/pypi/pyversions/modeldoctor?style=flat-square)](https://www.python.org/)
 [![License](https://img.shields.io/github/license/CodexUjayer/Model-Doctor?style=flat-square)](https://github.com/CodexUjayer/Model-Doctor/blob/main/LICENSE)
 [![Downloads](https://img.shields.io/pypi/dm/modeldoctor?style=flat-square&color=0ea5e9)](https://pypi.org/project/modeldoctor/)
