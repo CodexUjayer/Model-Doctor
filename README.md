@@ -115,7 +115,7 @@ ModelDoctor is continuously verified against the Validation Laboratory, an indep
 
 | Metric | Result |
 |---|---|
-| Validation Scenarios | 54 |
+| Validation Scenarios | 1,000+ |
 | Diagnostic Accuracy | 98.1% |
 | Supported Models | Scikit-learn |
 | Validation Framework | Included |
