@@ -17,7 +17,7 @@ If you believe you have discovered a security vulnerability in ModelDoctor, plea
 
 Instead, report it privately by emailing:
 
-your-email@example.com
+dev.ujayerhasnat@gmail.com
 
 Include as much information as possible:
 
