@@ -179,6 +179,12 @@ If you use ModelDoctor in academic research, please cite it:
 }
 ```
 
+## Security
+
+Please report security vulnerabilities according to the guidelines in [SECURITY.md](SECURITY.md).
+
+Do **not** report security vulnerabilities through public GitHub Issues.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
