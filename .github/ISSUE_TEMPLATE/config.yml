@@ -1,0 +1,10 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Documentation
+    url: https://codexujayer.github.io/Model-Doctor/
+    about: Read the official documentation.
+
+  - name: Discussions
+    url: https://github.com/CodexUjayer/Model-Doctor/discussions
+    about: Ask questions and discuss ideas with the community.
